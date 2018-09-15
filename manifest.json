@@ -6,7 +6,7 @@
 
   "content_scripts": [{
     "matches": ["*://*/*"],
-    "js":["jquery.min.js", "./main.js"]
+    "js":["libraries/jquery.min.js", "libraries/popper.min.js","./main.js"]
   }],
   
   "manifest_version": 2
