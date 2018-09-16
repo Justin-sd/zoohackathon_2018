@@ -5,7 +5,6 @@ var endangered_animals = ["African Elephant", "Woolly Mammoth", "panda"];
 var page_content;
 var enfo_popper;
 var popperNode;
-var isModalShown
 
 //ANYTIME YOU NEED TO USE AN ID FOR AN ANIMAL CALL THIS
 function translateId(animal) {
@@ -69,27 +68,20 @@ insert_popup();
 highlight_species();
 
 $(document).ready(function () {
-    $(".enfo").click(function () {
-        if (!isModalShown) {
-            //Get the name of the animal being hovered
-            let animal_id = $(this).attr("data")
-            $(this).attr("id", animal_id)
-            console.log("got here")
-            populateModal($(this).attr("id"))
-            showModal($(this).attr("id"))
-            isModalShown = true
-        } else {
-            $(this).attr("id", "")
-            hideModal()
-            isModalShown = false
-        }
-    })
-
     $(".enfo").hover(function () {
+
         $(this).css("background", "lightblue")
 
+        //Get the name of the animal being hovered
+        let animal_id = $(this).attr("data")
+        $(this).attr("id", animal_id)
+        console.log("got here")
+        populateModal($(this).attr("id"))
+        showModal($(this).attr("id"))
     }, function () {
         $(this).css("background", "")
-    })
+        $(this).attr("id", "")
+        hideModal()
+    });
 
-})
+});
