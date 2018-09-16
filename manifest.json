@@ -8,6 +8,9 @@
     "matches": ["*://*/*"],
     "js":["libraries/jquery.min.js", "libraries/popper.min.js","./main.js"]
   }],
+  "web_accessible_resources": [
+    "/modal.html"
+  ],
   
   "manifest_version": 2
 }
