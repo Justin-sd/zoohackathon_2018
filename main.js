@@ -8,7 +8,7 @@ var popperNode;
 
 //ANYTIME YOU NEED TO USE AN ID FOR AN ANIMAL CALL THIS
 function translateId(animal) {
-  return animal.replace(/ /g, "");
+    return animal.replace(/ /g, "");
 }
 
 function showModal(animal) {
@@ -38,7 +38,7 @@ function hideModal() {
 
 //Append the popup element to the body
 function insert_popup() {
-  page_content = `<div id="enfo_popup" style="background-color: white;
+    page_content = `<div id="enfo_popup" style="background-color: white;
   margin: auto;
   padding: 20px;
   display: none;
@@ -50,56 +50,44 @@ function insert_popup() {
 
 function populateModal(animal_id) {
     let animal_name = document.getElementById(animal_id).innerHTML.toLowerCase();
+    $.get(`https://enfo-api-heroku.herokuapp.com/animal/${animal_name}`, function (data) {
+        console.log(data)
+        let endangerment_level = data.endangerment_level
+        let animal_img = data.animal_img
+        let graph_img = data.graph_img
+        let blurb = data.blurb
+        let status = data.status
+        let scientific_name = data.scientific_name
 
-    let endangerment_level
-    let animal_img
-    let graph_img
-    let status
-    let blurb
-
-    switch(animal_name) {
-        case "african elephant":
-            endangerment_level = "salmon"
-            status = "VU"
-            link = "https://www.worldwildlife.org/species/elephant"
-            animal_img = "http://acsweb.ucsd.edu/~jggross/image_hoster/zoohackathon_2018_animals/african_elephant.jpg"
-            graph_img = "http://acsweb.ucsd.edu/~jggross/image_hoster/zoohackathon_2018_graphs/elephants_poach_statistics.png"
-            blurb = "The African bush elephant (Loxodonta africana), also known as the African savanna elephant, is the larger of the two species of African elephants, and the largest living terrestrial animal. These elephants were previously regarded as the same species, but the African forest elephant has been reclassified as L. cyclotis."
-            break
-        default:
-            endangerment_level = ""
-            animal_img = ""
-            link = ""
-            graph_img = ""
-            blurb = ""
-    }
-
-    $("#enfo_popup").css("background", endangerment_level)
-    $("#enfo_popup_animal_img").attr("src", animal_img)
-    $('#enfo_popup_stats_img').attr("src", graph_img)
-    $("#enfo_popup_text").html(blurb)
-    $('#help_link').attr("src", link)
-    
+        $("#enfo_popup").css("background", endangerment_level)
+        $("#enfo_popup_animal_img").attr("src", animal_img)
+        $('#enfo_popup_stats_img').attr("src", graph_img)
+        $("#enfo_popup_text").html(blurb)
+        $('#help_link').attr("src", link)
+    });
 
 
-  // let content_url = chrome.extension.getURL("./src/animal_database.json", data => {
-  //     return data
-  // })
-  // console.log("here is the content_url", content_url);
-  // let animal_search = getJSON();
-  // console.log("animal_search in populateModal", data.animals[0]);
+
+
+
+    // let content_url = chrome.extension.getURL("./src/animal_database.json", data => {
+    //     return data
+    // })
+    // console.log("here is the content_url", content_url);
+    // let animal_search = getJSON();
+    // console.log("animal_search in populateModal", data.animals[0]);
 }
 
 function highlight_species() {
-  endangered_animals.forEach(function(animal) {
-    page_content = document.body.innerHTML.replace(
-      new RegExp(animal, "gi"),
-      `<span class='enfo' data=${translateId(
-        animal
-      )} style='color: green; text-decoration: underline'>${animal}</span>`
-    );
-    $("body").html(page_content);
-  });
+    endangered_animals.forEach(function (animal) {
+        page_content = document.body.innerHTML.replace(
+            new RegExp(animal, "gi"),
+            `<span class='enfo' data=${translateId(
+                animal
+            )} style='color: green; text-decoration: underline'>${animal}</span>`
+        );
+        $("body").html(page_content);
+    });
 }
 
 insert_popup();
