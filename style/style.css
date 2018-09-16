@@ -1,0 +1,7 @@
+.model-content {
+  display: flex;
+  border: 1px solid #fff;
+  width: 900px;
+  justify-content: space-around;
+
+}
