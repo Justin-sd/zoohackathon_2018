@@ -1,11 +1,10 @@
 let db_url;
 let animal_name;
 
-var endangered_animals = ["African Elephant", "Woolly Mammoth", "panda"];
+var endangered_animals = ["African Elephant", "Woolly Mammoth", "parrot"];
 var page_content;
 var enfo_popper;
 var popperNode;
-var isModalShown;
 
 //ANYTIME YOU NEED TO USE AN ID FOR AN ANIMAL CALL THIS
 function translateId(animal) {
@@ -13,25 +12,28 @@ function translateId(animal) {
 }
 
 function showModal(animal) {
-  referenceObject = $(`#${translateId(animal)}`);
-  popperNode = $("#enfo_popup");
+    referenceObject = $(`#${translateId(animal)}`)
+    //$(`#${animal}`).css("display", "block")
+    popperNode = $('#enfo_popup')
+    popperNode.css("display", "block")
 
-  enfo_popper = new Popper(referenceObject, popperNode, {
-    placement: "top",
-    modifiers: {
-      flip: {
-        behavior: ["left", "right", "top", "bottom"]
-      },
-      offset: {
-        enabled: true,
-        offset: "0,10"
-      }
-    }
-  });
+    enfo_popper = new Popper(referenceObject, popperNode, {
+        placement: 'top',
+        modifiers: {
+            flip: {
+                behavior: ['left', 'right', 'top', 'bottom']
+            },
+            offset: {
+                enabled: true,
+                offset: '0,10'
+            }
+        }
+    });
 }
 
 function hideModal() {
-  enfo_popper.destroy();
+    popperNode.css("display", "none")
+    enfo_popper.destroy()
 }
 
 //Append the popup element to the body
@@ -39,14 +41,46 @@ function insert_popup() {
   page_content = `<div id="enfo_popup" style="background-color: white;
   margin: auto;
   padding: 20px;
+  display: none;
   border: 1px solid #888;
-  width: 30%;" class="modal"><div class = "modal-content" style="display:flex;  border: 1px solid #fff; justify-content:space-between;"><img height="200px" width="200px" src=${db_url}></img><p width="200px">Status: VU</p><img height="200px" width="800px" src = "http://acsweb.ucsd.edu/~jggross/image_hoster/zoohackathon_2018_graphs/elephants_poach_statistics.png"></img></div></div>`;
-  page_content = document.body.innerHTML.concat(page_content);
-  $("body").html(page_content);
+  width: 30%;" class="modal"><div class="modal-content" style="display:flex; flex-wrap: wrap; border: 2px solid #fff; justify-content: space-evenly;"><img id="enfo_popup_animal_img" height="170px" width="80px" style="padding:8px; flex-grow:1" src=""></img> <img id="enfo_popup_stats_img" style="padding:8px; " width="200px" height="200px" src=""><p width="100px" height="100px" style="padding:8px; flex-grow: 2" id="enfo_popup_text">placeholder text</p></div></div>`
+    page_content = document.body.innerHTML.concat(page_content);
+    $("body").html(page_content);
 }
 
 function populateModal(animal_id) {
-  let animal_name = document.getElementById(animal_id).innerHTML;
+    let animal_name = document.getElementById(animal_id).innerHTML.toLowerCase();
+
+    let endangerment_level
+    let animal_img
+    let graph_img
+    let status
+    let blurb
+
+    switch(animal_name) {
+        case "african elephant":
+            endangerment_level = "salmon"
+            status = "VU"
+            link = "https://www.worldwildlife.org/species/elephant"
+            animal_img = "http://acsweb.ucsd.edu/~jggross/image_hoster/zoohackathon_2018_animals/african_elephant.jpg"
+            graph_img = "http://acsweb.ucsd.edu/~jggross/image_hoster/zoohackathon_2018_graphs/elephants_poach_statistics.png"
+            blurb = "The African bush elephant (Loxodonta africana), also known as the African savanna elephant, is the larger of the two species of African elephants, and the largest living terrestrial animal. These elephants were previously regarded as the same species, but the African forest elephant has been reclassified as L. cyclotis."
+            break
+        default:
+            endangerment_level = ""
+            animal_img = ""
+            link = ""
+            graph_img = ""
+            blurb = ""
+    }
+
+    $("#enfo_popup").css("background", endangerment_level)
+    $("#enfo_popup_animal_img").attr("src", animal_img)
+    $('#enfo_popup_stats_img').attr("src", graph_img)
+    $("#enfo_popup_text").html(blurb)
+    $('#help_link').attr("src", link)
+    
+
 
   // let content_url = chrome.extension.getURL("./src/animal_database.json", data => {
   //     return data
@@ -71,29 +105,21 @@ function highlight_species() {
 insert_popup();
 highlight_species();
 
-$(document).ready(function() {
-  $(".enfo").click(function() {
-    if (!isModalShown) {
-      //Get the name of the animal being hovered
-      let animal_id = $(this).attr("data");
-      $(this).attr("id", animal_id);
-      console.log("got here");
-      populateModal($(this).attr("id"));
-      showModal($(this).attr("id"));
-      isModalShown = true;
-    } else {
-      $(this).attr("id", "");
-      hideModal();
-      isModalShown = false;
-    }
-  });
+$(document).ready(function () {
+    $(".enfo").hover(function () {
 
-  $(".enfo").hover(
-    function() {
-      $(this).css("background", "lightblue");
-    },
-    function() {
-      $(this).css("background", "");
-    }
-  );
+        $(this).css("background", "lightblue")
+
+        //Get the name of the animal being hovered
+        let animal_id = $(this).attr("data")
+        $(this).attr("id", animal_id)
+        console.log("got here")
+        populateModal($(this).attr("id"))
+        showModal($(this).attr("id"))
+    }, function () {
+        $(this).css("background", "")
+        $(this).attr("id", "")
+        hideModal()
+    });
+
 });
