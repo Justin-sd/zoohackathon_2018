@@ -1,11 +1,6 @@
-let ref;
-let db_animal;
-// let modal = $.get(chrome.extension.getURL("./modal.html"), function(data) {
-//   console.log(data);
-//   return data;
-//   // Or if you're using jQuery 1.8+:
-//   // $($.parseHTML(data)).appendTo('body');
-// });
+import {getJSON} from "./src/animal_database.js";
+let db_url;
+let animal_name;
 
 var endangered_animals = ["African Elephant", "Woolly Mammoth", "panda"];
 var page_content;
@@ -42,21 +37,30 @@ function hideModal() {
 
 //Append the popup element to the body
 function insert_popup() {
-  db_animal
+//   let animal_index = animal_search.animals[0].indexOf(animal_id)
+//   db_url = animal_search.animals[0][animal_index]['wiki'];
+ db_url = "https://en.wikipedia.org/wiki/African_elephant";
+  console.log('here is the db_url', db_url);
   page_content = `<div id="enfo_popup" style="background-color: white;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;" class="modal"><div class="modal-content"> <span class="close">&times;</span> <p>Some text in the Modal..</p></div></div>`
+  width: 80%;" class="modal"><div class="modal-content"> <span class="close">&times;</span> <iframe src=${db_url}></iframe>Some text in the Modal..</p></div></div>`
 //   console.log(modal)
 //   page_content = modal;
   page_content = document.body.innerHTML.concat(page_content);
   $("body").html(page_content);
 }
 
+function populateModal(animal_id){
+    let animal_name = document.getElementById(animal_id).innerHTML;
+    let animal_search = getJSON();
+    console.log("animal_search in populateModal", animal_search);
+
+}
+
 function highlight_species() {
   endangered_animals.forEach(function(animal) {
-    db_animal = animal;
     page_content = document.body.innerHTML.replace(
       new RegExp(animal, "gi"),
       `<span class='enfo' data=${translateId(
@@ -75,7 +79,9 @@ $(document).ready(function () {
         //Get the name of the animal being hovered
         let animal_id = $(this).attr("data")
         $(this).attr("id", animal_id)
-        showModal($(this).attr("id"))
+       
+        
+       populateModal($(this).attr("id"))
     }, function() {
         $(this).attr("id", '')
         hideModal()

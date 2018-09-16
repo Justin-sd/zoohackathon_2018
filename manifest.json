@@ -6,10 +6,11 @@
 
   "content_scripts": [{
     "matches": ["*://*/*"],
-    "js":["libraries/jquery.min.js", "libraries/popper.min.js","./main.js"]
+    "js":["libraries/jquery.min.js", "libraries/popper.min.js","./main.js", "./src/animal_database.js"]
   }],
   "web_accessible_resources": [
-    "/modal.html"
+    "/modal.html",
+    "./src/animaldata.json"
   ],
   
   "manifest_version": 2
