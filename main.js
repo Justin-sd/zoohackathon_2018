@@ -11,11 +11,12 @@ function translateId(animal) {
 }
 
 function showModal(animal) {
+
     referenceObject = $(`#${translateId(animal)}`)
     popperNode = $('#enfo_popup')
+
     enfo_popper = new Popper(referenceObject, popperNode, {
         placement: 'top',
-        
         modifiers: {
             flip: {
                 behavior: ['left', 'right', 'top', 'bottom']
@@ -26,6 +27,10 @@ function showModal(animal) {
             }
         }
     });
+}
+
+function hideModal() {
+    enfo_popper.destroy()
 }
 
 //Append the popup element to the body
@@ -52,5 +57,8 @@ $(document).ready(function () {
         let animal_id = $(this).attr("data")
         $(this).attr("id", animal_id)
         showModal($(this).attr("id"))
+    }, function() {
+        $(this).attr("id", '')
+        hideModal()
     })
 })
