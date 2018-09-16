@@ -1,5 +1,5 @@
 let ref;
-let popper;
+let db_animal;
 // let modal = $.get(chrome.extension.getURL("./modal.html"), function(data) {
 //   console.log(data);
 //   return data;
@@ -18,34 +18,32 @@ function translateId(animal) {
 }
 
 function showModal(animal) {
-  referenceObject = $(`#${translateId(animal)}`);
-  popperNode = $("#myModal");
-  enfo_popper = new Popper(referenceObject, popperNode, {
-    placement: "top",
 
-    modifiers: {
-      flip: {
-        behavior: ["left", "right", "top", "bottom"]
-      },
-      offset: {
-        enabled: true,
-        offset: "0,10"
-      }
-    }
-  });
+    referenceObject = $(`#${translateId(animal)}`)
+    popperNode = $('#enfo_popup')
+
+    enfo_popper = new Popper(referenceObject, popperNode, {
+        placement: 'top',
+        modifiers: {
+            flip: {
+                behavior: ['left', 'right', 'top', 'bottom']
+            },
+            offset: {
+                enabled: true,
+                offset: '0,10'
+            }
+        }
+    });
 }
 
-/**
- *  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-  </div>
- */
-
+function hideModal() {
+    enfo_popper.destroy()
+}
 
 //Append the popup element to the body
 function insert_popup() {
-  page_content = `<div id="myModal" style="background-color: white;
+  db_animal
+  page_content = `<div id="enfo_popup" style="background-color: white;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -58,6 +56,7 @@ function insert_popup() {
 
 function highlight_species() {
   endangered_animals.forEach(function(animal) {
+    db_animal = animal;
     page_content = document.body.innerHTML.replace(
       new RegExp(animal, "gi"),
       `<span class='enfo' data=${translateId(
@@ -71,11 +70,14 @@ function highlight_species() {
 insert_popup();
 highlight_species();
 
-$(document).ready(function() {
-  $(".enfo").hover(function() {
-    //Get the name of the animal being hovered
-    let animal_id = $(this).attr("data");
-    $(this).attr("id", animal_id);
-    showModal($(this).attr("id"));
-  });
-});
+$(document).ready(function () {
+    $(".enfo").hover(function () { 
+        //Get the name of the animal being hovered
+        let animal_id = $(this).attr("data")
+        $(this).attr("id", animal_id)
+        showModal($(this).attr("id"))
+    }, function() {
+        $(this).attr("id", '')
+        hideModal()
+    })
+})
