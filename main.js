@@ -11,8 +11,6 @@ function translateId(animal) {
 }
 
 function showModal(animal) {
-    console.log(`${translateId(animal)} has been clicked!`)
-    alert(`${animal} clicked!`)
     referenceObject = $(`#${translateId(animal)}`)
     popperNode = $('#enfo_popup')
     enfo_popper = new Popper(referenceObject, popperNode, {
@@ -39,7 +37,7 @@ function insert_popup() {
 
 function highlight_species() {
     endangered_animals.forEach(function (animal) {
-        page_content = document.body.innerHTML.replace(new RegExp(animal, "gi"), `<span id='${translateId(animal)}' class='enfo' style='background-color: yellow'>${animal}</span>`)
+        page_content = document.body.innerHTML.replace(new RegExp(animal, "gi"), `<span class='enfo' data=${translateId(animal)} style='background-color: yellow'>${animal}</span>`)
         $("body").html(page_content);
     });
 }
@@ -49,5 +47,10 @@ highlight_species()
 
 
 $(document).ready(function () {
-    $(".enfo").hover(function () { showModal($(this).attr("id")) })
+    $(".enfo").hover(function () { 
+        //Get the name of the animal being hovered
+        let animal_id = $(this).attr("data")
+        $(this).attr("id", animal_id)
+        showModal($(this).attr("id"))
+    })
 })
