@@ -64,6 +64,8 @@ function populateModal(animal_id) {
         $('#enfo_popup_stats_img').attr("src", graph_img)
         $("#enfo_popup_text").html(blurb)
         $('#help_link').attr("src", link)
+
+        showModal(animal_id)
     });
 
 
@@ -103,7 +105,6 @@ $(document).ready(function () {
         $(this).attr("id", animal_id)
         console.log("got here")
         populateModal($(this).attr("id"))
-        showModal($(this).attr("id"))
     }, function () {
         $(this).css("background", "")
         $(this).attr("id", "")
