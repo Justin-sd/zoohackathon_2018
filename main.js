@@ -1,7 +1,7 @@
 let db_url;
 let animal_name;
 
-var endangered_animals = ["African Elephant", "Woolly Mammoth", "parrot"];
+var endangered_animals = ["African Elephant", "Black Rhinoceros"];
 var page_content;
 var enfo_popper;
 var popperNode;
@@ -43,6 +43,7 @@ function insert_popup() {
   padding: 20px;
   display: none;
   border: 1px solid #888;
+  border-radius: 25px;
   width: 30%;" class="modal"><div class="modal-content" style="display:flex; flex-wrap: wrap; border: 2px solid #fff; justify-content: space-evenly;"><img id="enfo_popup_animal_img" height="170px" width="80px" style="padding:8px; flex-grow:1" src=""></img> <img id="enfo_popup_stats_img" style="padding:8px; " width="200px" height="200px" src=""><p width="100px" height="100px" style="padding:8px; flex-grow: 2" id="enfo_popup_text">placeholder text</p></div></div>`
     page_content = document.body.innerHTML.concat(page_content);
     $("body").html(page_content);
@@ -56,6 +57,7 @@ function populateModal(animal_id) {
         let animal_img = data.animal_img
         let graph_img = data.graph_img
         let blurb = data.blurb
+        let link = data.link
         let status = data.status
         let scientific_name = data.scientific_name
 
