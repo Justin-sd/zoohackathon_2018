@@ -10,7 +10,8 @@
   }],
   "web_accessible_resources": [
     "/modal.html",
-    "./src/animaldata.json"
+    "./src/animaldata.json",
+    "images/*.jpg"
   ],
   
   "manifest_version": 2

@@ -37,17 +37,11 @@ function hideModal() {
 
 //Append the popup element to the body
 function insert_popup() {
-    //   let animal_index = animal_search.animals[0].indexOf(animal_id)
-    //   db_url = animal_search.animals[0][animal_index]['wiki'];
-    db_url = "https://en.wikipedia.org/wiki/African_elephant";
-    console.log('here is the db_url', db_url);
     page_content = `<div id="enfo_popup" style="background-color: white;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;" class="modal"><div class="modal-content"> <span class="close">&times;</span> <iframe src=${db_url}></iframe>Some text in the Modal..</p></div></div>`
-    //   console.log(modal)
-    //   page_content = modal;
+  width: 30%;" class="modal"><div class="modal-content"><img height="200px" width="200px" src=${db_url}></img>Some text in the Modal..</p></div></div>`
     page_content = document.body.innerHTML.concat(page_content);
     $("body").html(page_content);
 }
