@@ -1,0 +1,19 @@
+{
+  "name": "EnFo",
+  "version": "1.0",
+  "description": "Learn more about endangered species!",
+  "permissions": ["declarativeContent", "storage"],
+
+  "content_scripts": [{
+    "matches": ["*://*/*"],
+    "css": ["style/style.css"],
+    "js":["libraries/jquery.min.js", "libraries/popper.min.js","./main.js"]
+  }],
+  "web_accessible_resources": [
+    "/modal.html",
+    "./src/animal_database.json",
+    "images/*.jpg"
+  ],
+  
+  "manifest_version": 2
+}
