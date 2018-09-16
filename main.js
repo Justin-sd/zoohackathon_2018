@@ -1,7 +1,7 @@
 let db_url;
 let animal_name;
 
-var endangered_animals = ["African Elephant", "Woolly Mammoth", "panda"];
+var endangered_animals = ["African Elephant", "Woolly Mammoth", "parrot"];
 var page_content;
 var enfo_popper;
 var popperNode;
@@ -45,9 +45,27 @@ function insert_popup() {
 }
 
 function populateModal(animal_id) {
-    let animal_name = document.getElementById(animal_id).innerHTML;
-    let animal_search = getJSON();
-    console.log("animal_search in populateModal", animal_search);
+    let animal_name = document.getElementById(animal_id).innerHTML.toLowerCase();
+
+    let endangerment_level
+    let animal_img
+    let graph_img
+    let blurb
+
+    switch(animal_name) {
+        case "african elephant":
+            endangerment_level = "salmon"
+            animal_img = "http://acsweb.ucsd.edu/~jggross/image_hoster/zoohackathon_2018_animals/african_elephant.jpg"
+            graph_img = ""
+            blurb = "The African bush elephant (Loxodonta africana), also known as the African savanna elephant, is the larger of the two species of African elephants, and the largest living terrestrial animal. These elephants were previously regarded as the same species, but the African forest elephant has been reclassified as L. cyclotis."
+            break
+    }
+
+    $("#enfo_popup").css("background", endangerment_level)
+    $("#enfo_popup_animal_img").attr("src", animal_img)
+    $("#enfo_popup_text").html(blurb)
+    
+
 
 }
 
