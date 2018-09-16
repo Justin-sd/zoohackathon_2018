@@ -1,4 +1,4 @@
-import {getJSON} from "./src/animal_database.js";
+// let animal_db = "./src/animal_database.json";
 let db_url;
 let animal_name;
 
@@ -54,8 +54,8 @@ function insert_popup() {
 
 function populateModal(animal_id){
     let animal_name = document.getElementById(animal_id).innerHTML;
-    let animal_search = getJSON();
-    console.log("animal_search in populateModal", animal_search);
+    // let animal_search = getJSON();
+    // console.log("animal_search in populateModal", data.animals[0]);
 
 }
 
@@ -76,14 +76,19 @@ highlight_species();
 
 $(document).ready(function () {
     $(".enfo").hover(function () { 
+        let animal_id;
         //Get the name of the animal being hovered
-        let animal_id = $(this).attr("data")
+        animal_id = $(this).attr("data")
         $(this).attr("id", animal_id)
        
         
-       populateModal($(this).attr("id"))
+        showModal($(this).attr("id"))
     }, function() {
         $(this).attr("id", '')
-        hideModal()
+        // hideModal()
+    });
+    $(".close").click(function(){
+        console.log("hearing the click")
+        $(`#${animal_id}`).attr("id, '');
     })
 })
