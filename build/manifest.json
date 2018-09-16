@@ -1,0 +1,17 @@
+{
+  "name": "EnFo",
+  "version": "1.0",
+  "description": "Learn more about endangered species!",
+  "permissions": ["declarativeContent", "storage"],
+
+  "content_scripts": [{
+    "matches": ["*://*/*"],
+    "js":["libraries/jquery.min.js", "libraries/popper.min.js","./main.js"]
+  }],
+
+  "browser_action":{
+    "default_popup": "index.html"
+  },
+  
+  "manifest_version": 2
+}
