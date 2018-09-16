@@ -17,7 +17,7 @@ let data = `{"animals":[
     }
 ]}`;
 
-export default function getJSON() {
+function getJSON() {
   return JSON.parse(data);
 }
 
