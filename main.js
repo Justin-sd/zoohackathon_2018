@@ -12,7 +12,6 @@ function translateId(animal) {
 }
 
 function showModal(animal) {
-
     referenceObject = $(`#${translateId(animal)}`)
     popperNode = $('#enfo_popup')
 
@@ -40,7 +39,7 @@ function insert_popup() {
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 30%;" class="modal"><div class="modal-content"><img height="200px" width="200px" src=${db_url}></img>Some text in the Modal..</p></div></div>`
+  width: 30%;" class="modal"><div class="modal-content"><img id="enfo_popup_animal_img" height="200px" width="200px" src=""></img><img id="enfo_popup_stats_img" width="100px" height="100px" src=""><p id="enfo_popup_text">placeholder text</p></div></div>`
     page_content = document.body.innerHTML.concat(page_content);
     $("body").html(page_content);
 }
