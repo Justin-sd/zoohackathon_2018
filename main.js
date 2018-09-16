@@ -65,21 +65,11 @@ function populateModal(animal_id) {
         $("#enfo_popup_animal_img").attr("src", animal_img)
         $('#enfo_popup_stats_img').attr("src", graph_img)
         $("#enfo_popup_text").html(blurb)
+        $('#enfo_popup_status').html(status)
         $('#help_link').attr("src", link)
 
         showModal(animal_id)
     });
-
-
-
-
-
-    // let content_url = chrome.extension.getURL("./src/animal_database.json", data => {
-    //     return data
-    // })
-    // console.log("here is the content_url", content_url);
-    // let animal_search = getJSON();
-    // console.log("animal_search in populateModal", data.animals[0]);
 }
 
 function highlight_species() {
